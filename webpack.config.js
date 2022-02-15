@@ -28,7 +28,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: THIS_DIR.concat('public/index.html'),
       filename: THIS_DIR.concat('dist/index.html'),
-      // favicon: THIS_DIR.concat('public/logo.png'),
+      favicon: THIS_DIR.concat('public/icon.svg'),
     }),
   ],
   optimization: {

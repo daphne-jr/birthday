@@ -23,6 +23,8 @@
   "homepage": "https://github.com/daphne-jr/birthday#readme",
   "devDependencies": {
     "@types/lodash": "~4.14.178",
+    "@types/react": "~17.0.39",
+    "@types/react-dom": "~17.0.11",
     "html-webpack-plugin": "~5.5.0",
     "husky": "~7.0.4",
     "lint-staged": "~12.3.4",
@@ -33,6 +35,8 @@
     "webpack-dev-server": "~4.7.4"
   },
   "dependencies": {
-    "lodash": "~4.17.21"
+    "lodash": "~4.17.21",
+    "react": "~17.0.2",
+    "react-dom": "~17.0.2"
   }
 }
