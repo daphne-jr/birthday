@@ -3,12 +3,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 class Root extends React.Component {
-  render () {
-    return <div>heyyyyyyy</div>
+  render() {
+    return <div>heyyyyyyy</div>;
   }
 }
 
 ReactDOM.render(
   <Root />,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
