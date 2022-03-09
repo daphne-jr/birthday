@@ -53,15 +53,16 @@ module.exports = {
     plugins: [new TsconfigPathsWebpackPlugin()],
   },
   output: {
-    path: THIS_DIR.concat('dist/'),
-    publicPath: '/',
+    path: THIS_DIR.concat('build/'),
+    publicPath: isProd ? './' : '/',
     filename: 'static/js/[name]_[fullhash].js',
     chunkFilename: 'static/js/[name]_[fullhash].js',
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: THIS_DIR.concat('public/index.html'),
-      filename: THIS_DIR.concat('dist/index.html'),
+      filename: THIS_DIR.concat('build/index.html'),
       favicon: THIS_DIR.concat('public/icon.svg'),
     }),
   ],
@@ -77,10 +78,10 @@ module.exports = {
           name(module) {
             // get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1];
 
             // npm package names are URL-safe, but some servers don't like @ symbols
-            return `npm.${packageName.replace('@', '')}`;
+            return `npm.${packageName?.replace('@', '')}`;
           },
         },
       },
