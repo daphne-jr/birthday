@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
 const THIS_DIR = path.join(__dirname, './');
 
 module.exports = {
@@ -9,6 +12,33 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(css|less)$/,
+        use: [
+          isProd
+            ? {
+              loader: MiniCssExtractPlugin.loader,
+            }
+            : 'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                auto: /\.m\.\w+$/i,
+                localIdentName: '[local]--[hash:base64:5]',
+              },
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ],
+      },
+      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
@@ -16,7 +46,11 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      src: path.resolve(__dirname, './src/'),
+    },
+    extensions: ['.ts', '.tsx', '.wasm', '.mjs', '.jsx', '.js', '.json', '.png'],
+    plugins: [new TsconfigPathsWebpackPlugin()],
   },
   output: {
     path: THIS_DIR.concat('dist/'),
@@ -56,6 +90,10 @@ module.exports = {
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-  }
+    maxAssetSize: 512000,
+  },
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+  },
 };

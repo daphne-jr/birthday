@@ -1,4 +1,7 @@
+// constants
 const message = 'Happy Birthday Yoga!!! ';
+
+// Fanciful 1: scroll title
 const chars = Array.from(message);
 
 function scrollTitle() {
@@ -8,3 +11,5 @@ function scrollTitle() {
 }
 
 scrollTitle();
+
+// Fanciful 2:
