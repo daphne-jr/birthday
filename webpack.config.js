@@ -7,7 +7,9 @@ const isProd = process.env.NODE_ENV === 'production';
 const THIS_DIR = path.join(__dirname, './');
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: {
+    app: THIS_DIR.concat('src/index.tsx'),
+  },
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -53,17 +55,19 @@ module.exports = {
     plugins: [new TsconfigPathsWebpackPlugin()],
   },
   output: {
-    path: THIS_DIR.concat('dist/'),
-    publicPath: '/',
+    path: THIS_DIR.concat('build'),
+    publicPath: isProd ? './' : '/',
     filename: 'static/js/[name]_[fullhash].js',
     chunkFilename: 'static/js/[name]_[fullhash].js',
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: THIS_DIR.concat('public/index.html'),
-      filename: THIS_DIR.concat('dist/index.html'),
+      filename: THIS_DIR.concat('build/index.html'),
       favicon: THIS_DIR.concat('public/icon.svg'),
     }),
+    new MiniCssExtractPlugin(),
   ],
   optimization: {
     runtimeChunk: 'single',

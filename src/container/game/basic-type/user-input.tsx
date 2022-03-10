@@ -42,6 +42,7 @@ export function UserInput() {
     <Input
       value={userValue}
       onChange={onChangeInput}
+      size="large"
     />
   );
 }
